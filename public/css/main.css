@@ -1,0 +1,7 @@
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navigation-pagination { text-align: center; }
+.navigation-pagination nav { display: inline-block; }
