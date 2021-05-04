@@ -4,6 +4,28 @@
 {% block titrePage %}Liste des voitures{% endblock %}
 
 {% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{message}}</div>        
+    {% endfor %}
+
+    {{form_start(form)}}
+        <div class="row align-items-center p-2 m-2">
+            <div class="col-5">
+                {{form_row(form.minAnnee)}}
+            </div>
+            <div class="col-5">
+                {{form_row(form.maxAnnee)}}
+            </div>
+            <div class="col-2 align-items-center">
+                <input class="btn btn-primary btn-sm" type="submit" value="Filtrer" />
+            </div>
+        </div>    
+    {{form_end(form)}}
+
+    {% if admin %}
+        <a href="{{ path('add_voiture') }}" class="btn btn-success d-block p-2 m-2">Ajouter</a>
+    {% endif %}
+
     <div class="row no-gutters">
         {% for voiture in voitures %}
             <div class="col-12 col-lg-6 p-1">
@@ -26,6 +48,19 @@
                             </div>
                         </div>
                     </div>
+
+                    {% if admin %}
+                        <div class="row no-gutters">
+                            <a href="{{ path('edit_voiture', {id: voiture.id}) }}" class="col btn btn-warning">Modifier</a>
+
+                            <form class="col" method="POST" action="{{ path('del_voiture', {'id': voiture.id}) }}" onsubmit="return confirm('Confirmer la suppression ?');">
+                                <input type="hidden" name="_method" value="DEL" />
+                                <input type="hidden" name="_token" value="{{csrf_token('DEL' ~ voiture.id)}}" />
+                                <button type="submit" class="col btn btn-danger">Supprimer</button>
+                            </form>
+                            
+                        </div>                
+                    {% endif %}
                 </div>
             </div>            
         {% endfor %}

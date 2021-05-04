@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification{% endblock %}
+{% block titrePage %}Modification de la voiture : {{voiture.immatriculation}} {% endblock %}
+
+{% block body %}
+    {{form_start(form, { 'attr' : { 'class': 'form-global' } })}}
+        
+        {{ form_row(form.immatriculation, {'class': 'form-control'}) }}
+        {{ form_row(form.portes, {'class': 'form-control'}) }}
+        {{ form_row(form.annee, {'class': 'form-control'}) }}
+        {{ form_row(form.modele, {'class': 'form-control'}) }}
+
+        <button class="btn btn-success" type="submit">Sauvegarder</button>
+        <a href="{{ path('admin') }}" class="btn btn-primary">Retour</a>
+    {{form_end(form)}}
+{% endblock %}
